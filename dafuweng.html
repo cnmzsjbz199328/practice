@@ -101,14 +101,14 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="title">🎲 垄断骰子 🎲</h1>
-        <button class="dice-btn" onclick="rollDice()">投掷骰子</button>
+        <h1 class="title">🎲 大富翁 / Monopoly 🎲</h1>
+        <button class="dice-btn" onclick="rollDice()">投掷骰子 / Roll Dice</button>
         <div id="result" class="result">
-            <p class="label">前进到位置</p>
+            <p class="label">前进到位置 / Move to Position</p>
             <p id="instruction" class="number">-</p>
             <p id="english" class="number">-</p>
         </div>
-        <p class="footer">🎯 祝您好运!</p>
+        <p class="footer">🎯 祝您好运! / Good Luck!</p>
     </div>
 
     <script>
@@ -122,7 +122,7 @@
 
             // 禁用按钮
             diceBtn.disabled = true;
-            diceBtn.textContent = '骰子转动中...';
+            diceBtn.textContent = '骰子转动中.../ Dice is working!';
 
             try {
                 // 生成1-20的随机数
@@ -161,7 +161,7 @@
             } finally {
                 // 恢复按钮
                 diceBtn.disabled = false;
-                diceBtn.textContent = '投掷骰子';
+                diceBtn.textContent = '投掷骰子 / Roll Dice';
             }
         }
     </script>
