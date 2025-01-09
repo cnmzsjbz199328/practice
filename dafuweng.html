@@ -146,8 +146,7 @@
 
                 // 显示结果
                 result.classList.add('show');
-                numberElement.textContent = data[0].instruction;
-                numberElement.textContent = data[0].english;
+                numberElement.textContent = `${data[0].instruction} (${data[0].english})`;
 
                 // 播放音效（可选）
                 new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiGMwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66lYFApGn+DyvmwhBTGH0fPTgjMGHm7A7+OZRA0PVq3n77BdGAg+ltryxnMpBSl+zPLaiTYJGGS57OihUBELTKXh8bllHgU2jdXzzn0vBSF1xe/glEILElyx6OytWxUIQ5zd8sFuJAUuhM/z1YU2Bhxqvu7mnEYODlOq5O+zYBoGPJPY88p2KwUnd8rx3os5ChVgtunqpVITCkmi4PK8aB8GM4nU8tGAMQYeb8Pv45xHDg1Xr+fwtmAbBTqW2vLIdS0GJX3N8tyLOQkWYrfq6qVTFQlIn+DyvmwhBjKI0fPTgjEGHG3B7uScRw4NVK3m77NhGwU5k9jzyna...'); // 这里放入实际的音效文件
