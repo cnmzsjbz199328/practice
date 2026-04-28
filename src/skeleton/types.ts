@@ -1,4 +1,8 @@
-export type JointId =
+// Bone IDs are arbitrary strings now that the document is JSON-driven. The default
+// skeleton uses the names below, but loaded documents may use any string ids.
+export type JointId = string;
+
+export type DefaultJointId =
   | 'pelvis'
   | 'torso'
   | 'head'

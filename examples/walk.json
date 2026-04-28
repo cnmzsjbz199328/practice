@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "canvas": { "width": 480, "height": 360, "fps": 30 },
+  "bones": [
+    { "id": "pelvis", "parent": null, "length": 0 },
+    { "id": "torso", "parent": "pelvis", "length": 80 },
+    { "id": "head", "parent": "torso", "length": 40, "isHead": true },
+    { "id": "leftUpperArm", "parent": "torso", "length": 50 },
+    { "id": "leftLowerArm", "parent": "leftUpperArm", "length": 50 },
+    { "id": "rightUpperArm", "parent": "torso", "length": 50 },
+    { "id": "rightLowerArm", "parent": "rightUpperArm", "length": 50 },
+    { "id": "leftUpperLeg", "parent": "pelvis", "length": 60 },
+    { "id": "leftLowerLeg", "parent": "leftUpperLeg", "length": 60 },
+    { "id": "rightUpperLeg", "parent": "pelvis", "length": 60 },
+    { "id": "rightLowerLeg", "parent": "rightUpperLeg", "length": 60 }
+  ],
+  "keyframes": [
+    {
+      "id": "k0",
+      "time": 0,
+      "pose": {
+        "rootX": 240, "rootY": 215,
+        "angles": {
+          "pelvis": 0, "torso": -1.5708, "head": 0,
+          "leftUpperArm": 1.7708, "leftLowerArm": -0.3,
+          "rightUpperArm": -1.3708, "rightLowerArm": 0.3,
+          "leftUpperLeg": 1.5708, "leftLowerLeg": -0.4,
+          "rightUpperLeg": 1.7708, "rightLowerLeg": 0
+        }
+      }
+    },
+    {
+      "id": "k1",
+      "time": 0.25,
+      "pose": {
+        "rootX": 240, "rootY": 220,
+        "angles": {
+          "pelvis": 0, "torso": -1.5708, "head": 0,
+          "leftUpperArm": 1.5708, "leftLowerArm": 0,
+          "rightUpperArm": -1.5708, "rightLowerArm": 0,
+          "leftUpperLeg": 1.7708, "leftLowerLeg": 0,
+          "rightUpperLeg": 1.5708, "rightLowerLeg": 0
+        }
+      }
+    },
+    {
+      "id": "k2",
+      "time": 0.5,
+      "pose": {
+        "rootX": 240, "rootY": 215,
+        "angles": {
+          "pelvis": 0, "torso": -1.5708, "head": 0,
+          "leftUpperArm": 1.3708, "leftLowerArm": 0.3,
+          "rightUpperArm": -1.7708, "rightLowerArm": -0.3,
+          "leftUpperLeg": 1.7708, "leftLowerLeg": 0,
+          "rightUpperLeg": 1.5708, "rightLowerLeg": -0.4
+        }
+      }
+    },
+    {
+      "id": "k3",
+      "time": 0.75,
+      "pose": {
+        "rootX": 240, "rootY": 220,
+        "angles": {
+          "pelvis": 0, "torso": -1.5708, "head": 0,
+          "leftUpperArm": 1.5708, "leftLowerArm": 0,
+          "rightUpperArm": -1.5708, "rightLowerArm": 0,
+          "leftUpperLeg": 1.5708, "leftLowerLeg": 0,
+          "rightUpperLeg": 1.7708, "rightLowerLeg": 0
+        }
+      }
+    }
+  ],
+  "animationParams": {
+    "durationSeconds": 1,
+    "easing": { "kind": "linear" },
+    "loop": true
+  }
+}

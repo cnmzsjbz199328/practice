@@ -1,6 +1,5 @@
 import { RefObject } from 'react';
 import { useEditorStore } from '../store/useEditorStore';
-import { BONES } from '../skeleton/defaultSkeleton';
 import { poseToJointWorld } from '../skeleton/forwardKinematics';
 import type { JointId } from '../skeleton/types';
 import { svgPointFromEvent } from '../util/math';
@@ -32,9 +31,10 @@ export function JointHandle({ jointId, svgRef, cx, cy, isRoot }: Props) {
       }
       const pose = getSelectedPose();
       if (!pose) return;
-      const bone = BONES.find((b) => b.id === jointId);
+      const bones = useEditorStore.getState().bones;
+      const bone = bones.find((b) => b.id === jointId);
       if (!bone || !bone.parent) return;
-      const world = poseToJointWorld(pose, BONES);
+      const world = poseToJointWorld(pose, bones);
       const parent = world[bone.parent];
       const parentEnd = parent.end;
       const worldAngle = Math.atan2(pt.y - parentEnd.y, pt.x - parentEnd.x);

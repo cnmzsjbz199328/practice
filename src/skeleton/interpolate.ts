@@ -5,20 +5,6 @@
 import { cubicBezierY, shortestArcLerp } from '../util/math';
 import type { EasingSpec, JointId, Keyframe, Pose } from './types';
 
-const ALL_JOINTS: JointId[] = [
-  'pelvis',
-  'torso',
-  'head',
-  'leftUpperArm',
-  'leftLowerArm',
-  'rightUpperArm',
-  'rightLowerArm',
-  'leftUpperLeg',
-  'leftLowerLeg',
-  'rightUpperLeg',
-  'rightLowerLeg',
-];
-
 export function easingToCubicBezier(e: EasingSpec): [number, number, number, number] | null {
   switch (e.kind) {
     case 'linear':
@@ -53,8 +39,24 @@ export function interpolatePose(keyframes: Keyframe[], t: number, easing: Easing
   const u = applyEasing((t - a.time) / span, easing);
 
   const angles: Record<JointId, number> = { ...a.pose.angles };
-  for (const j of ALL_JOINTS) {
-    angles[j] = shortestArcLerp(a.pose.angles[j], b.pose.angles[j], u);
+  const keys = new Set<string>([
+    ...Object.keys(a.pose.angles),
+    ...Object.keys(b.pose.angles),
+  ]);
+  for (const k of keys) {
+    const j = k as JointId;
+    const av = a.pose.angles[j];
+    const bv = b.pose.angles[j];
+    if (av === undefined && bv === undefined) continue;
+    if (av === undefined) {
+      angles[j] = bv;
+      continue;
+    }
+    if (bv === undefined) {
+      angles[j] = av;
+      continue;
+    }
+    angles[j] = shortestArcLerp(av, bv, u);
   }
   return {
     rootX: a.pose.rootX + (b.pose.rootX - a.pose.rootX) * u,

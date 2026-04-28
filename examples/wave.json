@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "canvas": { "width": 480, "height": 360, "fps": 30 },
+  "bones": [
+    { "id": "pelvis", "parent": null, "length": 0 },
+    { "id": "torso", "parent": "pelvis", "length": 80 },
+    { "id": "head", "parent": "torso", "length": 40, "isHead": true },
+    { "id": "leftUpperArm", "parent": "torso", "length": 50 },
+    { "id": "leftLowerArm", "parent": "leftUpperArm", "length": 50 },
+    { "id": "rightUpperArm", "parent": "torso", "length": 50 },
+    { "id": "rightLowerArm", "parent": "rightUpperArm", "length": 50 },
+    { "id": "leftUpperLeg", "parent": "pelvis", "length": 60 },
+    { "id": "leftLowerLeg", "parent": "leftUpperLeg", "length": 60 },
+    { "id": "rightUpperLeg", "parent": "pelvis", "length": 60 },
+    { "id": "rightLowerLeg", "parent": "rightUpperLeg", "length": 60 }
+  ],
+  "keyframes": [
+    {
+      "id": "k0",
+      "time": 0,
+      "pose": {
+        "rootX": 240,
+        "rootY": 220,
+        "angles": {
+          "pelvis": 0,
+          "torso": -1.5708,
+          "head": 0,
+          "leftUpperArm": 2.0944,
+          "leftLowerArm": 0,
+          "rightUpperArm": -1.5708,
+          "rightLowerArm": -0.5,
+          "leftUpperLeg": 1.9199,
+          "leftLowerLeg": 0,
+          "rightUpperLeg": 1.2217,
+          "rightLowerLeg": 0
+        }
+      }
+    },
+    {
+      "id": "k1",
+      "time": 1,
+      "pose": {
+        "rootX": 240,
+        "rootY": 220,
+        "angles": {
+          "pelvis": 0,
+          "torso": -1.5708,
+          "head": 0,
+          "leftUpperArm": 2.0944,
+          "leftLowerArm": 0,
+          "rightUpperArm": -1.5708,
+          "rightLowerArm": 0.6,
+          "leftUpperLeg": 1.9199,
+          "leftLowerLeg": 0,
+          "rightUpperLeg": 1.2217,
+          "rightLowerLeg": 0
+        }
+      }
+    },
+    {
+      "id": "k2",
+      "time": 2,
+      "pose": {
+        "rootX": 240,
+        "rootY": 220,
+        "angles": {
+          "pelvis": 0,
+          "torso": -1.5708,
+          "head": 0,
+          "leftUpperArm": 2.0944,
+          "leftLowerArm": 0,
+          "rightUpperArm": -1.5708,
+          "rightLowerArm": -0.5,
+          "leftUpperLeg": 1.9199,
+          "leftLowerLeg": 0,
+          "rightUpperLeg": 1.2217,
+          "rightLowerLeg": 0
+        }
+      }
+    }
+  ],
+  "animationParams": {
+    "durationSeconds": 2,
+    "easing": { "kind": "ease-in-out" },
+    "loop": true
+  }
+}

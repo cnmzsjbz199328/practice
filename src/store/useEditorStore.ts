@@ -1,6 +1,9 @@
 import { create } from 'zustand';
 import { BONES, DEFAULT_POSE } from '../skeleton/defaultSkeleton';
+import { CANVAS_HEIGHT, CANVAS_WIDTH, DEFAULT_FPS } from '../skeleton/canvas';
 import type { AnimationParams, Bone, JointId, Keyframe, Pose } from '../skeleton/types';
+import type { AnimationDocument } from '../schema/animationDocument';
+import { CURRENT_VERSION } from '../schema/animationDocument';
 
 function makeId(): string {
   return Math.random().toString(36).slice(2, 10);
@@ -10,11 +13,18 @@ function clonePose(p: Pose): Pose {
   return { rootX: p.rootX, rootY: p.rootY, angles: { ...p.angles } };
 }
 
-interface EditorState {
+export interface CanvasState {
+  width: number;
+  height: number;
+  fps: number;
+}
+
+export interface EditorState {
   bones: Bone[];
   keyframes: Keyframe[];
   selectedKeyframeId: string;
   animationParams: AnimationParams;
+  canvas: CanvasState;
 
   selectKeyframe: (id: string) => void;
   addKeyframeAt: (time: number) => void;
@@ -23,6 +33,7 @@ interface EditorState {
   updateRoot: (x: number, y: number) => void;
   setKeyframeTime: (id: string, time: number) => void;
   setAnimationParams: (p: Partial<AnimationParams>) => void;
+  loadDocument: (doc: AnimationDocument) => void;
   getSelectedPose: () => Pose | null;
 }
 
@@ -51,6 +62,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
     easing: { kind: 'ease-in-out' },
     loop: true,
   },
+  canvas: { width: CANVAS_WIDTH, height: CANVAS_HEIGHT, fps: DEFAULT_FPS },
 
   selectKeyframe: (id) => set({ selectedKeyframeId: id }),
 
@@ -99,8 +111,57 @@ export const useEditorStore = create<EditorState>((set, get) => ({
   setAnimationParams: (p) =>
     set((state) => ({ animationParams: { ...state.animationParams, ...p } })),
 
+  loadDocument: (doc) =>
+    set(() => {
+      const bones: Bone[] = doc.bones.map((b) => ({
+        id: b.id as JointId,
+        parent: (b.parent ?? null) as JointId | null,
+        length: b.length,
+        isHead: b.isHead,
+      }));
+      const keyframes: Keyframe[] = doc.keyframes.map((k) => ({
+        id: k.id,
+        time: k.time,
+        pose: {
+          rootX: k.pose.rootX,
+          rootY: k.pose.rootY,
+          angles: { ...(k.pose.angles as Record<JointId, number>) },
+        },
+      }));
+      return {
+        bones,
+        keyframes,
+        selectedKeyframeId: keyframes[0].id,
+        animationParams: doc.animationParams,
+        canvas: {
+          width: doc.canvas.width,
+          height: doc.canvas.height,
+          fps: doc.canvas.fps ?? DEFAULT_FPS,
+        },
+      };
+    }),
+
   getSelectedPose: () => {
     const s = get();
     return s.keyframes.find((k) => k.id === s.selectedKeyframeId)?.pose ?? null;
   },
 }));
+
+export function buildDocumentFromStore(state: EditorState): AnimationDocument {
+  return {
+    version: CURRENT_VERSION,
+    canvas: { width: state.canvas.width, height: state.canvas.height, fps: state.canvas.fps },
+    bones: state.bones.map((b) => ({
+      id: b.id,
+      parent: b.parent,
+      length: b.length,
+      ...(b.isHead ? { isHead: true } : {}),
+    })),
+    keyframes: state.keyframes.map((k) => ({
+      id: k.id,
+      time: k.time,
+      pose: { rootX: k.pose.rootX, rootY: k.pose.rootY, angles: { ...k.pose.angles } },
+    })),
+    animationParams: state.animationParams,
+  };
+}

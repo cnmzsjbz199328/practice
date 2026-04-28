@@ -8,16 +8,22 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "render": "tsx scripts/render.ts",
+    "render:wave": "tsx scripts/render.ts examples/wave.json out/wave.mp4"
   },
   "dependencies": {
     "@remotion/player": "^4.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "remotion": "^4.0.0",
+    "zod": "^4.3.6",
     "zustand": "^4.5.0"
   },
   "devDependencies": {
+    "@remotion/bundler": "^4.0.452",
+    "@remotion/cli": "^4.0.452",
+    "@remotion/renderer": "^4.0.452",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
@@ -30,6 +36,7 @@
     "eslint-plugin-react-refresh": "^0.4.0",
     "postcss": "^8.4.0",
     "tailwindcss": "^3.4.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.5.0",
     "vite": "^6.0.0"
   }

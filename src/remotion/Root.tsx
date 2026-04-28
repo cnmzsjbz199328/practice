@@ -1,38 +1,36 @@
-// Registered via registerRoot for future `remotion render` use. The Vite editor consumes
-// StickmanComposition through @remotion/player directly, so this file is intentionally not
-// imported by the Vite entry. Adding @remotion/cli + an entry that imports this file is the
-// only step needed to enable MP4 rendering.
+// Registered via registerRoot for `remotion render` / programmatic renderMedia. The Vite
+// editor consumes StickmanComposition through @remotion/player directly, so this file is
+// intentionally not imported by the Vite entry — it's the entry point for the CLI bundler.
 
 import { Composition, registerRoot } from 'remotion';
 import { StickmanComposition } from './StickmanComposition';
-import type { StickmanCompositionProps } from './StickmanComposition';
-import { DEFAULT_POSE } from '../skeleton/defaultSkeleton';
-import { CANVAS_HEIGHT, CANVAS_WIDTH } from '../components/StickmanCanvas';
-
-const FPS = 30;
-
-const DEFAULT_PROPS: StickmanCompositionProps = {
-  keyframes: [{ id: 'k0', time: 0, pose: DEFAULT_POSE }],
-  animationParams: { durationSeconds: 1, easing: { kind: 'ease-in-out' }, loop: true },
-};
+import { DEFAULT_COMPOSITION_PROPS } from './defaultProps';
+import { DEFAULT_FPS } from '../skeleton/canvas';
+import { CompositionPropsSchema } from '../schema/animationDocument';
 
 export const RemotionRoot = () => (
   <>
     <Composition
       id="Stickman"
       component={StickmanComposition}
-      durationInFrames={FPS}
-      fps={FPS}
-      width={CANVAS_WIDTH}
-      height={CANVAS_HEIGHT}
-      defaultProps={DEFAULT_PROPS}
-      calculateMetadata={({ props }: { props: StickmanCompositionProps }) => ({
-        durationInFrames: Math.max(
-          1,
-          Math.round(props.animationParams.durationSeconds * FPS),
-        ),
-        fps: FPS,
-      })}
+      schema={CompositionPropsSchema}
+      durationInFrames={DEFAULT_FPS}
+      fps={DEFAULT_FPS}
+      width={DEFAULT_COMPOSITION_PROPS.canvas.width}
+      height={DEFAULT_COMPOSITION_PROPS.canvas.height}
+      defaultProps={DEFAULT_COMPOSITION_PROPS}
+      calculateMetadata={({ props }) => {
+        const fps = props.canvas.fps ?? DEFAULT_FPS;
+        return {
+          fps,
+          durationInFrames: Math.max(
+            1,
+            Math.round(props.animationParams.durationSeconds * fps),
+          ),
+          width: props.canvas.width,
+          height: props.canvas.height,
+        };
+      }}
     />
   </>
 );
